@@ -20,18 +20,22 @@ const slides = [
 let position = 0; 
 const numberOfSlide = slides.length;
 
-createCaroussel(position);
-createDots();
-
-const listPoints = document.querySelectorAll(".dot");	
 const img = document.querySelector(".banner-img");
 const p = document.querySelector(".banner-txt");
 
+createDots();
+
+const listPoints = document.querySelectorAll(".dot");	
+
+//Initialisation
+createCaroussel(position);
 updateDot();
 
 
 const left = document.querySelector('.arrow_left');
 const right = document.querySelector('.arrow_right');
+
+
 
 
 left.addEventListener("click", function () {
@@ -65,15 +69,24 @@ function createDots(){
 }
 
 function updateDot() {
-    listPoints[position].add('dot_selected');
-    const previousIndex = position > 0 ? position - 1 : finalIndex;
-	listPoints[previousIndex].remove('dot_selected');
-}  
-	
+   for (let index = 0; index < listPoints.length; index++) {
+   
+    const dot = listPoints[index];
+	if (index == position){
+		dot.classList.add('dot_selected');
+	}		
+  else{
+	dot.classList.remove('dot_selected');
+	}	 
+  }
+    
+	}  
 
 function createCaroussel(position){
+	
   	const element = slides[position];
 		img.setAttribute("src" , "./assets/images/slideshow/"+ element.image);
+
 		p.innerHTML= element.tagLine;
 
     updateDot();
